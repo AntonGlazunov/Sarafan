@@ -1,16 +1,11 @@
-from django.shortcuts import render
 from rest_framework import generics
 
+from shop.models import Category
+from shop.paginators import CategoryPaginator
+from shop.serializers import CategorySerializer
 
-class LessonListAPIView(generics.ListAPIView):
-    serializer_class = LessonSerializer
-    queryset = Lesson.objects.all()
-    permission_classes = [IsAuthenticated]
-    pagination_class = UniversityPaginator
 
-    def get_queryset(self):
-        if self.request.user.groups.filter(name='Moder').exists():
-            return Lesson.objects.all()
-        else:
-            lesson = Lesson.objects.filter(owner=self.request.user)
-            return lesson
+class CategoryListAPIView(generics.ListAPIView):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+    pagination_class = CategoryPaginator

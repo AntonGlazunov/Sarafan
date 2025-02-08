@@ -19,7 +19,7 @@ class Category(models.Model):
 
 
 class Subcategory(models.Model):
-    category = models.ForeignKey('shop.Category', related_name='sub', verbose_name='Категория',
+    category = models.ForeignKey('shop.Category', verbose_name='Категория',
                                  on_delete=models.CASCADE)
     name = models.CharField(max_length=100, verbose_name='Подкатегория')
     slug = models.CharField(max_length=150, verbose_name='slug', unique=True, validators=[
