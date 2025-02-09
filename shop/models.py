@@ -52,6 +52,13 @@ class Product(models.Model):
     image2 = models.ImageField(upload_to='shop/product/', verbose_name='Изображение 200*200', **NULLABLE)
     price = models.DecimalField(max_digits=1000000, decimal_places=2, verbose_name='Цена')
 
+    def __str__(self):
+        return f'{self.subcategory} {self.price} {self.name} {self.slug}'
+
+    class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
+
     def save(self, *args, **kwargs):
         if self.image:
             img = Image.open(self.image)
