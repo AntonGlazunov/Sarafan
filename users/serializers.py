@@ -3,6 +3,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from shop.models import Product
 from users.models import User, Purchases
+from users.validators import QuantityValidator
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -27,9 +28,11 @@ class PurchasesSerializer(serializers.ModelSerializer):
         queryset=Product.objects.all(),
         slug_field='slug'
     )
+    quantity = serializers.IntegerField(min_value=0)
     class Meta:
         model = Purchases
         fields = ['product', 'quantity']
+        validators = [QuantityValidator(field='quantity')]
 
 
 class PurchasesAllSerializer(serializers.ModelSerializer):
